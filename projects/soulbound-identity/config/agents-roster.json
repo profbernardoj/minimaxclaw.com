@@ -55,13 +55,13 @@
   "personal": {
     "host": "Mac Mini #2",
     "agents": [
-      { "name": "David Personal Agent", "slug": "david-personal", "description": "the user's personal AI assistant. Calendar, family coordination, personal tasks." },
-      { "name": "[REDACTED] Personal Agent", "slug": "cayla-personal", "description": "[REDACTED]'s personal AI assistant." },
-      { "name": "[REDACTED] Personal Agent", "slug": "savannah-personal", "description": "[REDACTED]'s personal AI assistant." },
-      { "name": "[REDACTED] Personal Agent", "slug": "sydney-personal", "description": "[REDACTED]'s personal AI assistant." },
-      { "name": "[REDACTED] Personal Agent", "slug": "sofia-personal", "description": "[REDACTED]'s personal AI assistant." },
-      { "name": "[REDACTED] Personal Agent", "slug": "daniel-personal", "description": "Daniel's personal AI assistant." },
-      { "name": "[REDACTED] Personal Agent", "slug": "leia-personal", "description": "[REDACTED]'s personal AI assistant." }
+      { "name": "Personal Agent 1", "slug": "personal-agent-1", "description": "Personal AI assistant." },
+      { "name": "Personal Agent 2", "slug": "personal-agent-2", "description": "Personal AI assistant." },
+      { "name": "Personal Agent 3", "slug": "personal-agent-3", "description": "Personal AI assistant." },
+      { "name": "Personal Agent 4", "slug": "personal-agent-4", "description": "Personal AI assistant." },
+      { "name": "Personal Agent 5", "slug": "personal-agent-5", "description": "Personal AI assistant." },
+      { "name": "Personal Agent 6", "slug": "personal-agent-6", "description": "Personal AI assistant." },
+      { "name": "Personal Agent 7", "slug": "personal-agent-7", "description": "Personal AI assistant." }
     ]
   }
 }
