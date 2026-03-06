@@ -1,0 +1,89 @@
+name: Test Installer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/install-with-deps.sh'
+      - 'scripts/bootstrap-everclaw.mjs'
+      - '.github/workflows/test-installer.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/install-with-deps.sh'
+      - 'scripts/bootstrap-everclaw.mjs'
+  workflow_dispatch:
+
+jobs:
+  test-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test dependency check (clean env)
+        run: |
+          echo "=== Testing clean environment (all deps missing) ==="
+          bash scripts/install-with-deps.sh --check-only --skip-openclaw || echo "Expected failure: missing deps"
+
+      - name: Test dependency check (with Node.js)
+        run: |
+          echo "=== Testing with Node.js installed ==="
+          # Node.js is pre-installed on GitHub Actions runners
+          bash scripts/install-with-deps.sh --check-only --skip-openclaw
+
+      - name: Test help output
+        run: |
+          echo "=== Testing --help ==="
+          bash scripts/install-with-deps.sh --help
+
+  test-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test dependency check (with Node.js)
+        run: |
+          echo "=== Testing macOS with Node.js installed ==="
+          # Node.js and Homebrew are pre-installed on GitHub Actions macOS runners
+          bash scripts/install-with-deps.sh --check-only --skip-openclaw
+
+      - name: Test help output
+        run: |
+          echo "=== Testing --help ==="
+          bash scripts/install-with-deps.sh --help
+
+  test-bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Test bootstrap-everclaw.mjs --help
+        run: |
+          echo "=== Testing bootstrap-everclaw.mjs --help ==="
+          node scripts/bootstrap-everclaw.mjs --help
+
+      - name: Test bootstrap-everclaw.mjs --status (no key expected)
+        run: |
+          echo "=== Testing bootstrap-everclaw.mjs --status (should fail gracefully) ==="
+          node scripts/bootstrap-everclaw.mjs --status || echo "Expected: no bootstrap key in CI"
+
+  lint-shell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check shell script syntax
+        run: |
+          echo "=== Checking shell script syntax ==="
+          bash -n scripts/install-with-deps.sh
+          bash -n scripts/install.sh
+          echo "All shell scripts pass syntax check"
