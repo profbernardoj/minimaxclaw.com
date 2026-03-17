@@ -339,8 +339,8 @@ OpenClaw → morpheus-proxy (port 8083) → proxy-router (port 8082) → Morpheu
 **Wallet Addresses:**
 | Address | Role |
 |---------|------|
-| `0xF3D1e7C8D865213FC95b3d8DdCe19b1234BFaFaD` | Router EOA (sessions, gas) |
-| `0x9ac558D434F6Cb87576BfA4A03deCC41BF35E533` | Safe Smart Account (MOR reserve) |
+| *(set via `ROUTER_WALLET` env var)* | Router EOA (sessions, gas) |
+| *(set via `SAFE_WALLET` env var)* | Safe Smart Account (MOR reserve) |
 
 **Key Contracts (Base Mainnet):**
 | Contract | Address |
