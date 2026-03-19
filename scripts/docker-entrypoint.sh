@@ -223,6 +223,59 @@ if jq . "$CONFIG_FILE" > /dev/null 2>&1; then
   fi
 fi
 
+# ─── API Key Injection: Morpheus Gateway + morpheus-local ────────────────────
+# mor-gateway is a custom provider not in OpenClaw's PROVIDER_ENV_API_KEY_CANDIDATES,
+# so env vars won't be auto-detected. We inject them into the config directly.
+#
+# Supported env vars:
+#   MORPHEUS_GATEWAY_API_KEY  → mor-gateway provider apiKey (Morpheus API Gateway)
+#   MORPHEUS_PROXY_API_KEY    → morpheus-local provider apiKey (local proxy-router)
+
+if jq . "$CONFIG_FILE" > /dev/null 2>&1; then
+  API_KEY_CHANGES=false
+
+  # Morpheus API Gateway key (mor-gateway provider)
+  if [ -n "${MORPHEUS_GATEWAY_API_KEY:-}" ]; then
+    TMP_CONFIG=$(mktemp)
+    if jq --arg key "$MORPHEUS_GATEWAY_API_KEY" '
+      .models.providers["mor-gateway"].apiKey = $key
+    ' "$CONFIG_FILE" > "$TMP_CONFIG"; then
+      mv "$TMP_CONFIG" "$CONFIG_FILE"
+      echo "🔑 Morpheus Gateway API key configured (mor-gateway)"
+      API_KEY_CHANGES=true
+    else
+      rm -f "$TMP_CONFIG"
+      echo "⚠️  Failed to inject Morpheus Gateway API key"
+    fi
+  fi
+
+  # Local proxy-router key (morpheus-local provider)
+  if [ -n "${MORPHEUS_PROXY_API_KEY:-}" ]; then
+    TMP_CONFIG=$(mktemp)
+    if jq --arg key "$MORPHEUS_PROXY_API_KEY" '
+      .models.providers["morpheus-local"].apiKey = $key
+    ' "$CONFIG_FILE" > "$TMP_CONFIG"; then
+      mv "$TMP_CONFIG" "$CONFIG_FILE"
+      echo "🔑 Morpheus proxy API key configured (morpheus-local)"
+      API_KEY_CHANGES=true
+    else
+      rm -f "$TMP_CONFIG"
+      echo "⚠️  Failed to inject Morpheus proxy API key"
+    fi
+  fi
+
+  # Warn if no AI provider keys are configured at all
+  if [ "$API_KEY_CHANGES" = "false" ]; then
+    MG_KEY=$(jq -r '.models.providers["mor-gateway"].apiKey // empty' "$CONFIG_FILE" 2>/dev/null)
+    ML_KEY=$(jq -r '.models.providers["morpheus-local"].apiKey // empty' "$CONFIG_FILE" 2>/dev/null)
+    if [ -z "$MG_KEY" ] && [ -z "$ML_KEY" ]; then
+      echo "⚠️  No AI provider API keys configured!"
+      echo "   Set MORPHEUS_GATEWAY_API_KEY env var (get one free at https://app.mor.org)"
+      echo "   Or set MORPHEUS_PROXY_API_KEY for local proxy-router"
+    fi
+  fi
+fi
+
 # ─── Start Morpheus Proxy (background) ──────────────────────────────────────
 
 # Trap signals to clean up all children on exit

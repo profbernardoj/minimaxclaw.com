@@ -4,6 +4,9 @@ All notable changes to EverClaw are documented here.
 
 ## [2026.3.30] - 2026-03-19
 
+### Added
+- **API key injection via environment variables** — Container entrypoint now accepts `MORPHEUS_GATEWAY_API_KEY` and `MORPHEUS_PROXY_API_KEY` env vars and injects them into the OpenClaw config at startup. `mor-gateway` is a custom provider not in OpenClaw's auto-detection list, so env vars weren't picked up. Users get a clear warning with signup URL if no AI provider keys are configured.
+
 ### Fixed
 - **Docker image shipping stale OpenClaw v2026.3.11 instead of v2026.3.13** — GitHub Actions CI workflow had `OPENCLAW_VERSION=v2026.3.11` hardcoded in `build-args`, overriding the Dockerfile. Combined with GHA layer caching, the OpenClaw binary never updated. Fixed by: (1) reading `OPENCLAW_VERSION` from Dockerfile dynamically, (2) adding `no-cache-filter: openclaw-builder` to bust the build cache for the OpenClaw build stage.
 
