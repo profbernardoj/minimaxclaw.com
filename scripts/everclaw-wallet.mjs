@@ -326,6 +326,9 @@ async function cmdSetup() {
   console.log("║  3. Run: node everclaw-wallet.mjs approve                   ║");
   console.log("║  4. Start inference: bash start.sh                           ║");
   console.log("╚══════════════════════════════════════════════════════════════╝");
+
+  // Auto-bootstrap: request micro-funding (0.0008 ETH + 2 USDC on Base)
+  try { const { bootstrap: bs } = await import('./bootstrap-client.mjs'); await bs(); } catch (e) { console.log(`\n⚠️  Auto-bootstrap skipped: ${e.message}`); }
 }
 
 async function cmdAddress() {
