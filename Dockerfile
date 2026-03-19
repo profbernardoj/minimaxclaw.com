@@ -25,10 +25,12 @@
 # Then open: http://localhost:18789
 #
 # Environment variables:
-#   OPENCLAW_GATEWAY_TOKEN  — Auth token for the web UI (auto-generated if not set)
-#   EVERCLAW_AUTH_TOKEN     — Bearer token for Morpheus proxy (default: morpheus-local)
-#   MOR_GATEWAY_API_KEY     — Morpheus API Gateway key (for cloud inference)
-#   WALLET_PRIVATE_KEY      — For local P2P staking (optional, use secrets in production)
+#   OPENCLAW_GATEWAY_TOKEN    — Auth token for the web UI (auto-generated if not set)
+#   MORPHEUS_GATEWAY_API_KEY  — Morpheus API Gateway key (get free at https://app.mor.org)
+#   MORPHEUS_PROXY_API_KEY    — Bearer token for local Morpheus proxy-router
+#   EVERCLAW_AUTH_TOKEN       — Legacy alias for proxy auth (default: morpheus-local)
+#   WALLET_PRIVATE_KEY        — For local P2P staking (optional, use secrets in production)
+#   OPENCLAW_ENABLE_DEVICE_AUTH=true — Re-enable device auth (default: disabled for containers)
 
 # ─── Stage 1: Build OpenClaw ─────────────────────────────────────────────────
 # Pin OpenClaw version for reproducible builds.
