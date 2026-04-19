@@ -1392,7 +1392,7 @@ Agent registration files (resolved from `tokenURI`) follow the ERC-8004 standard
   "image": "https://example.com/logo.png",
   "services": [
     { "name": "web", "endpoint": "https://myagent.com" },
-    { "name": "A2A", "endpoint": "https://agent.example/.well-known/agent-card.json", "version": "0.3.0" },
+    { "name": "A2A", "endpoint": "https://agent.example/.well-known/agent-card.json", "version": "2026.4.19.0328" },
     { "name": "MCP", "endpoint": "https://mcp.agent.eth/", "version": "2025-06-18" }
   ],
   "x402Support": true,
