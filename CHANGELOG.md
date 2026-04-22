@@ -2,6 +2,34 @@
 
 All notable changes to EverClaw are documented here.
 
+## [2026.4.22.1314] - 2026-04-22
+
+### Changed — OpenClaw Pin v2026.4.15 → v2026.4.21
+
+- **Dockerfile:** OpenClaw build target updated to `v2026.4.21`
+- **docker-compose.yml:** Image tag and build arg updated
+
+### Upstream Highlights (OpenClaw v2026.4.15 → v2026.4.21)
+
+#### New Features
+- **Image generation:** Defaults to `gpt-image-2` (OpenAI)
+- **Skill Workshop plugin:** Captures workflow corrections as reusable skills
+- **Kimi K2.6:** Added to Fireworks provider catalog
+- **Preview streaming:** Discord, Slack, Telegram show tool progress in live edits
+- **QQBot:** Self-contained engine with QR-code onboarding
+
+#### Performance
+- **Plugin startup:** Discord 98% faster, Telegram 14s faster, Matrix 1.8s faster
+- **Bundled plugin loading:** 82-90% faster via native Jiti
+
+#### Fixes
+- **ACP/subagents:** Parent→child echo loop fix on `sessions_send`
+- **Subagents:** Terminal failures no longer freeze or replay stale output
+- **Security:** External content strips chat-template special tokens (Qwen/ChatML, Llama, Gemma, Mistral)
+- **npm:** Fixed `node-domexception` deprecation warning chain
+
+(Reference: https://github.com/openclaw/openclaw/releases/tag/v2026.4.21)
+
 ## [2026.4.19.0439] - 2026-04-19
 
 ### Added — Per-Agent Inference Quota Management
