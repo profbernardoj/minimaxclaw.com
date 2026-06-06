@@ -159,9 +159,6 @@ function App() {
           ethereum: {
             connectors: ['metaMask', 'walletConnect', 'coinbaseWallet', 'rainbow', 'injected'],
           },
-          solana: {
-            connectors: ['phantom', 'solflare', 'backpack'],
-          },
         },
         appearance: {
           theme: 'dark',
