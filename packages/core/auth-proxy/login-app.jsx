@@ -163,6 +163,7 @@ function App() {
         appearance: {
           theme: 'dark',
           accentColor: '#7c3aed',
+          logo: '/auth/logo.png',
         },
       }}
     >

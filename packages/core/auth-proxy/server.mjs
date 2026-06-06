@@ -369,6 +369,24 @@ async function handleRequest(req, res) {
     return;
   }
 
+  // ── Logo asset (served for Privy modal branding) ──
+  if (pathname === '/auth/logo.png' && req.method === 'GET') {
+    try {
+      const logoPath = join(__dirname, 'assets', 'logo.png');
+      const logoData = await readFile(logoPath);
+      res.writeHead(200, {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=604800, immutable',
+        'X-Content-Type-Options': 'nosniff',
+      });
+      res.end(logoData);
+    } catch {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not found');
+    }
+    return;
+  }
+
   // ── Login bundle JS (built at Docker build time, no CDN dependency) ──
   if (pathname === '/auth/login-bundle.js' && req.method === 'GET') {
     res.writeHead(200, {
