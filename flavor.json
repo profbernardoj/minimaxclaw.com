@@ -1,10 +1,9 @@
 {
-  "name": "Morpheus Skill",
-  "slug": "morpheus-skill",
-  "domain": "morpheusclaw.com",
-  "description": "The canonical Morpheus decentralized AI agent skill for OpenClaw",
-  "remote": "https://github.com/profbernardoj/morpheus-skill.git",
+  "name": "MiniMax Claw",
+  "slug": "minimaxclaw",
+  "domain": "minimaxclaw.com",
+  "description": "AI agent powered by MiniMax models",
+  "remote": "https://github.com/profbernardoj/minimaxclaw.com.git",
   "defaultModel": "glm-5",
-  "persona": "Morpheus decentralized AI assistant",
-  "canonical": true
+  "persona": "MiniMax-focused AI assistant"
 }
